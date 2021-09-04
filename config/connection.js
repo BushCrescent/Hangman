@@ -1,11 +1,21 @@
 const mysql = require("mysql");
-
-const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "LjoSvcHMBqy$",
-    database: "hangman_db"
+const path = require('path');
+require('dotenv').config({ 
+   path: path.resolve(__dirname, '../.env') 
 });
+
+let connection;
+
+if (process.env.JAWSDB_URL) {
+    connection = createConnection(process.env.JAWSDB_URL);
+} else {
+    connection = mysql.createConnection({
+        host: process.env.HOST,
+        user: process.env.USERDB,
+        password: process.env.PASSWORD,
+        database: process.env.DB
+    });
+}
 
 connection.connect((err) => {
     if (err) throw err;
